@@ -7,7 +7,7 @@ EXCEPTION
 END;
 /
 
---Create tables
+-- Create tables
 CREATE TABLE O_RollCall (
   Roll_no NUMBER(5) PRIMARY KEY,
   Name    VARCHAR2(50),
@@ -20,7 +20,7 @@ CREATE TABLE N_RollCall (
   Branch  VARCHAR2(20)
 );
 
---Insert sample data
+-- Insert sample data
 -- Old (existing) RollCall data
 INSERT INTO O_RollCall VALUES (101, 'Manasi', 'Computer');
 INSERT INTO O_RollCall VALUES (102, 'Riya', 'IT');
@@ -101,4 +101,5 @@ BEGIN
                          rec.Branch);
   END LOOP;
 END;
+
 /
