@@ -1,7 +1,7 @@
 -- Drop table if exists
 DROP TABLE IF EXISTS areas;
 
---Create database
+-- Create database
 create database circle;
 use circle;
 
