@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS Result;
 create database student1;
 use student1;
 
--- 1️⃣ Create tables
+--  Create tables
 CREATE TABLE Stud_Marks (
     Roll_no INT,
     Name VARCHAR(50),
@@ -19,7 +19,7 @@ CREATE TABLE Result (
     Class VARCHAR(30)
 );
 
--- 2️⃣ Insert sample data
+-- Insert sample data
 INSERT INTO Stud_Marks VALUES 
 (101, 'Manasi', 1200),
 (102, 'Riya', 950),
@@ -27,7 +27,7 @@ INSERT INTO Stud_Marks VALUES
 (104, 'Kabir', 780),
 (105, 'Anaya', 1400);
 
--- 3️⃣ Create stored function to determine grade
+--  Create stored function to determine grade
 DELIMITER $$
 
 CREATE FUNCTION get_grade(marks INT) RETURNS VARCHAR(30)
@@ -50,7 +50,7 @@ END$$
 
 DELIMITER ;
 
--- 4️⃣ Create stored procedure to populate Result table
+-- Create stored procedure to populate Result table
 DELIMITER $$
 
 CREATE PROCEDURE proc_grade()
@@ -80,9 +80,9 @@ END$$
 
 DELIMITER ;
 
--- 5️⃣ Call the procedure to populate Result table
+--  Call the procedure to populate Result table
 CALL proc_grade();
 
--- 6️⃣ Display tables
+--  Display tables
 SELECT * FROM Stud_Marks;
 SELECT * FROM Result;
