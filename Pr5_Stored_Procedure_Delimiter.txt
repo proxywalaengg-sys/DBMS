@@ -2,11 +2,11 @@
 DROP TABLE IF EXISTS Stud_Marks;
 DROP TABLE IF EXISTS Result;
 
---Create database 
+-- Create database 
 create database student1;
 use student1;
 
---  Create tables
+-- Create tables
 CREATE TABLE Stud_Marks (
     Roll_no INT,
     Name VARCHAR(50),
