@@ -51,42 +51,42 @@ SELECT * FROM Enrollment;
 
 -- 10+ SQL QUERIES – JOINS, SUBQUERIES, VIEWS
 
--- 1️⃣ INNER JOIN – Students with their Courses
+--  INNER JOIN – Students with their Courses
 SELECT s.first_name, c.course_name, c.credits
 FROM Student s
 INNER JOIN Enrollment e ON s.student_id = e.student_id
 INNER JOIN Course c ON e.course_id = c.course_id;
 
--- 2️⃣ LEFT JOIN – All Students, even if not enrolled
+--  LEFT JOIN – All Students, even if not enrolled
 SELECT s.first_name, c.course_name
 FROM Student s
 LEFT JOIN Enrollment e ON s.student_id = e.student_id
 LEFT JOIN Course c ON e.course_id = c.course_id;
 
--- 3️⃣ RIGHT JOIN – All Courses, even if no student enrolled
+--  RIGHT JOIN – All Courses, even if no student enrolled
 SELECT s.first_name, c.course_name
 FROM Student s
 RIGHT JOIN Enrollment e ON s.student_id = e.student_id
 RIGHT JOIN Course c ON e.course_id = c.course_id;
 
--- 4️⃣ CROSS JOIN – Cartesian combination (limited with WHERE)
+--  CROSS JOIN – Cartesian combination (limited with WHERE)
 SELECT s.first_name, c.course_name
 FROM Student s
 CROSS JOIN Course c
 WHERE s.department = 'CSE';
 
--- 5️⃣ SELF JOIN – Compare students within same department
+--  SELF JOIN – Compare students within same department
 SELECT a.first_name AS Student1, b.first_name AS Student2, a.department
 FROM Student a
 JOIN Student b
 ON a.department = b.department AND a.student_id < b.student_id;
 
--- 6️⃣ SUBQUERY – Students scoring above class average
+--  SUBQUERY – Students scoring above class average
 SELECT first_name, marks
 FROM Student
 WHERE marks > (SELECT AVG(marks) FROM Student);
 
--- 7️⃣ SUBQUERY (IN operator) – Students enrolled in AI course
+--  SUBQUERY (IN operator) – Students enrolled in AI course
 SELECT first_name
 FROM Student
 WHERE student_id IN (
@@ -96,7 +96,7 @@ WHERE student_id IN (
     WHERE c.course_name = 'AI Fundamentals'
 );
 
--- 8️⃣ CORRELATED SUBQUERY – Top student in each department
+--  CORRELATED SUBQUERY – Top student in each department
 SELECT s1.first_name, s1.department, s1.marks
 FROM Student s1
 WHERE s1.marks = (
@@ -105,7 +105,7 @@ WHERE s1.marks = (
     WHERE s2.department = s1.department
 );
 
--- 9️⃣ SUBQUERY in FROM clause – Department-wise average
+--  SUBQUERY in FROM clause – Department-wise average
 SELECT department, ROUND(avg_marks,2)
 FROM (
     SELECT department, AVG(marks) AS avg_marks
@@ -113,7 +113,7 @@ FROM (
     GROUP BY department
 ) AS dept_avg;
 
--- 🔟 VIEW – Create a view for high scorers
+-- VIEW – Create a view for high scorers
 DROP VIEW IF EXISTS HighScorers;
 CREATE VIEW HighScorers AS
 SELECT first_name, department, marks
@@ -122,7 +122,7 @@ WHERE marks > 80;
 
 SELECT * FROM HighScorers;
 
--- 1️⃣1️⃣ VIEW + JOIN – Combine student + course info
+--  VIEW + JOIN – Combine student + course info
 DROP VIEW IF EXISTS StudentCourseView;
 CREATE VIEW StudentCourseView AS
 SELECT s.first_name, s.department, c.course_name
@@ -132,7 +132,7 @@ JOIN Course c ON e.course_id = c.course_id;
 
 SELECT * FROM StudentCourseView;
 
--- 1️⃣2️⃣ UPDATE via VIEW (allowed in MySQL if single table)
+--  UPDATE via VIEW (allowed in MySQL if single table)
 UPDATE HighScorers
 SET marks = marks + 2
 WHERE department = 'CSE';
