@@ -2,11 +2,11 @@
 DROP TABLE IF EXISTS N_RollCall;
 DROP TABLE IF EXISTS O_RollCall;
 
---Create database
+-- Create database
 create database cursor_prac;
 use cursor_prac;
 
---Create tables
+-- Create tables
 CREATE TABLE O_RollCall (
     Roll_no INT PRIMARY KEY,
     Name VARCHAR(50),
@@ -32,7 +32,7 @@ INSERT INTO N_RollCall VALUES
 (104, 'Kabir', 'ENTC'),
 (105, 'Anaya', 'Computer');
 
---Stored Procedure to merge data using a "parameterized cursor"
+-- Stored Procedure to merge data using a "parameterized cursor"
 DELIMITER $$
 
 CREATE PROCEDURE merge_rollcall(IN p_branch VARCHAR(20))
@@ -82,5 +82,5 @@ CALL merge_rollcall('Computer');
 CALL merge_rollcall('ENTC');
 CALL merge_rollcall('IT');
 
---Display final merged table
+-- Display final merged table
 SELECT * FROM O_RollCall ORDER BY Roll_no;
