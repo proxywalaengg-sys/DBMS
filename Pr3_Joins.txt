@@ -1,4 +1,3 @@
-
 -- Drop old database if exists and create new
 DROP DATABASE lab_assignment3;
 CREATE DATABASE lab_assignment3;
@@ -22,7 +21,7 @@ CREATE TABLE Enrollment (
     enroll_id INT AUTO_INCREMENT PRIMARY KEY,
     student_id INT,
     course_id INT,
-    enroll_date DATE DEFAULT CURRENT_DATE,
+    enroll_date DATE DEFAULT (CURDATE()),
     FOREIGN KEY (student_id) REFERENCES Student(student_id),
     FOREIGN KEY (course_id) REFERENCES Course(course_id)
 );
@@ -51,42 +50,42 @@ SELECT * FROM Enrollment;
 
 -- 10+ SQL QUERIES – JOINS, SUBQUERIES, VIEWS
 
---  INNER JOIN – Students with their Courses
+-- INNER JOIN – Students with their Courses
 SELECT s.first_name, c.course_name, c.credits
 FROM Student s
 INNER JOIN Enrollment e ON s.student_id = e.student_id
 INNER JOIN Course c ON e.course_id = c.course_id;
 
---  LEFT JOIN – All Students, even if not enrolled
+-- LEFT JOIN – All Students, even if not enrolled
 SELECT s.first_name, c.course_name
 FROM Student s
 LEFT JOIN Enrollment e ON s.student_id = e.student_id
 LEFT JOIN Course c ON e.course_id = c.course_id;
 
---  RIGHT JOIN – All Courses, even if no student enrolled
+-- RIGHT JOIN – All Courses, even if no student enrolled
 SELECT s.first_name, c.course_name
 FROM Student s
 RIGHT JOIN Enrollment e ON s.student_id = e.student_id
 RIGHT JOIN Course c ON e.course_id = c.course_id;
 
---  CROSS JOIN – Cartesian combination (limited with WHERE)
+-- CROSS JOIN – Cartesian combination (limited with WHERE)
 SELECT s.first_name, c.course_name
 FROM Student s
 CROSS JOIN Course c
 WHERE s.department = 'CSE';
 
---  SELF JOIN – Compare students within same department
+-- SELF JOIN – Compare students within same department
 SELECT a.first_name AS Student1, b.first_name AS Student2, a.department
 FROM Student a
 JOIN Student b
 ON a.department = b.department AND a.student_id < b.student_id;
 
---  SUBQUERY – Students scoring above class average
+-- SUBQUERY – Students scoring above class average
 SELECT first_name, marks
 FROM Student
 WHERE marks > (SELECT AVG(marks) FROM Student);
 
---  SUBQUERY (IN operator) – Students enrolled in AI course
+-- SUBQUERY (IN operator) – Students enrolled in AI course
 SELECT first_name
 FROM Student
 WHERE student_id IN (
@@ -96,7 +95,7 @@ WHERE student_id IN (
     WHERE c.course_name = 'AI Fundamentals'
 );
 
---  CORRELATED SUBQUERY – Top student in each department
+-- CORRELATED SUBQUERY – Top student in each department
 SELECT s1.first_name, s1.department, s1.marks
 FROM Student s1
 WHERE s1.marks = (
@@ -105,7 +104,7 @@ WHERE s1.marks = (
     WHERE s2.department = s1.department
 );
 
---  SUBQUERY in FROM clause – Department-wise average
+-- SUBQUERY in FROM clause – Department-wise average
 SELECT department, ROUND(avg_marks,2)
 FROM (
     SELECT department, AVG(marks) AS avg_marks
@@ -122,7 +121,7 @@ WHERE marks > 80;
 
 SELECT * FROM HighScorers;
 
---  VIEW + JOIN – Combine student + course info
+-- VIEW + JOIN – Combine student + course info
 DROP VIEW IF EXISTS StudentCourseView;
 CREATE VIEW StudentCourseView AS
 SELECT s.first_name, s.department, c.course_name
@@ -132,7 +131,7 @@ JOIN Course c ON e.course_id = c.course_id;
 
 SELECT * FROM StudentCourseView;
 
---  UPDATE via VIEW (allowed in MySQL if single table)
+-- UPDATE via VIEW (allowed in MySQL if single table)
 UPDATE HighScorers
 SET marks = marks + 2
 WHERE department = 'CSE';
