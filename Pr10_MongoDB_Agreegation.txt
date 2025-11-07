@@ -14,9 +14,18 @@ db.cust_table.aggregate({$group:{_id:"$Cust_Name","total":{$push:"$Amount"}}});
 db.cust_table.aggregate({$group:{_id:"$Cust_Name","total":{$sum:1}}});
 db.cust_table.aggregate({$group:{_id:"$Cust_Name","total":{$addToSet:"$Amount"}}});
 db.cust_table.createIndex({'Item_id':1})
-db.cust_table.createIndex({'Item_id':2})
-db.cust_table.createIndex({'Item_id':3})
 db.cust_table.getIndexes()
 db.cust_table.dropIndex({'Item_id':1})
-db.cust_table.dropIndex({'Item_id':3})
+db.cust_table.find({ Item_id: 3 })
 db.cust_table.getIndexes()
+
+//copy till above line
+
+
+
+
+
+//db.cust_table.aggregate([
+  { $group: { _id: "$Cust_Name", min_amt: { $min: "$Amount" }, max_amt: { $max: "$Amount" } } }
+])
+
